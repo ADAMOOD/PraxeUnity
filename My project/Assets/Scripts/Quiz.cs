@@ -6,9 +6,16 @@ namespace Assets.Scripts
     [Serializable]
     public class Quiz
     {
+        public enum RoomState
+        {
+            Running,
+            InLobby,
+            Ended
+        }
+
         public int maxPlayerCount { get; set; }
         public int currentPlayerCount { get; set; }
-        public DataController.RoomState roomState { get; set; }
+        public Quiz.RoomState roomState { get; set; }
         public DateTime createdAt { get; set; }
 
         // Default constructor for deserialization
@@ -17,7 +24,7 @@ namespace Assets.Scripts
         {
         }
 
-        public Quiz(int maxPlayerCount, int currentPlayerCount, DataController.RoomState roomState, DateTime createdAt)
+        public Quiz(int maxPlayerCount, int currentPlayerCount, Quiz.RoomState roomState, DateTime createdAt)
         {
             this.maxPlayerCount = maxPlayerCount;
             this.currentPlayerCount = currentPlayerCount;
@@ -25,12 +32,16 @@ namespace Assets.Scripts
             this.createdAt = createdAt;
         }
 
-        public Quiz(int maxPlayerCount, int currentPlayerCount, DataController.RoomState roomState)
+        public Quiz(int maxPlayerCount, int currentPlayerCount, Quiz.RoomState roomState)
         {
             this.maxPlayerCount = maxPlayerCount;
             this.currentPlayerCount = currentPlayerCount;
             this.roomState = roomState;
             this.createdAt = DateTime.Now;
+        }
+        public override string ToString()
+        {
+            return $"Max {maxPlayerCount}, {currentPlayerCount} Players, {roomState}, createdAt={createdAt}";
         }
     }
 }
