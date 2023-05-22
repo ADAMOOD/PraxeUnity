@@ -41,7 +41,7 @@ namespace Assets.Scripts
         }
         public override string ToString()
         {
-            return $"Max {maxPlayerCount}, {currentPlayerCount} Players, {roomState}, createdAt={createdAt}";
+            return $"Max {maxPlayerCount}, {currentPlayerCount} Players, Status {roomState}, created:{createdAt}";
         }
     }
 }
