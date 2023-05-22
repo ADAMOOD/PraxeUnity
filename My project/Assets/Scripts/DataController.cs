@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Net;
 using System;
 using System.IO;
-
+using UnityEngine;
+using System.Net;
+using Assets.Scripts;
+using Newtonsoft.Json; // Add reference to Newtonsoft.Json package
 
 public class DataController : MonoBehaviour
 {
@@ -14,30 +13,8 @@ public class DataController : MonoBehaviour
         InLobby,
         Ended
     }
-    public class Quiz
-    {
-        public int maxPlayerCount { get; set; }
-        public int currentPlayerCount { get; set; }
-        public RoomState roomState { get; set; }
-        public DateTime createdAt { get; set; }
 
-
-
-        public Quiz(int maxPlayerCount, int currentPlayerCount, RoomState roomState)
-        {
-            this.maxPlayerCount = maxPlayerCount;
-            this.currentPlayerCount = currentPlayerCount;
-            this.createdAt = DateTime.Now;
-            this.roomState = roomState;
-        }
-        public Quiz(int maxPlayerCount, int currentPlayerCount, RoomState roomState,DateTime createdAt)
-        {
-            this.maxPlayerCount = maxPlayerCount;
-            this.currentPlayerCount = currentPlayerCount;
-            this.createdAt = createdAt;
-            this.roomState = roomState;
-        }
-    }
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -48,11 +25,6 @@ public class DataController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private Quiz[] GetQuizzes()
     {
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Format("http://localhost:5191/api/Quiz"));
@@ -60,7 +32,10 @@ public class DataController : MonoBehaviour
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string jsonResponse = reader.ReadToEnd();
         Debug.Log(jsonResponse);
-        Quiz[] quizzes = JsonUtility.FromJson<Quiz[]>(jsonResponse);
+
+        // Use Newtonsoft.Json for deserialization
+        Quiz[] quizzes = JsonConvert.DeserializeObject<Quiz[]>(jsonResponse, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+
         return quizzes;
     }
 }
