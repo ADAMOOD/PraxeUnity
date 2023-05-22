@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,16 +11,18 @@ public class CreateButtons : MonoBehaviour
     public GameObject buttonPrefab;
     void Start()
     {
-        LoadGamesToButtons();
+        LoadGamesToButtons(buttonPrefab);
     }
 
-    public void LoadGamesToButtons()
+    public void LoadGamesToButtons(GameObject buttonPrefab)
     {
         while (transform.childCount > 0)
         {
             DestroyImmediate(transform.GetChild(0).gameObject);
         }
-        if(DataController.GetQuizzes().Length==0)
+        Debug.Log("cekacka");
+        Thread.Sleep(1000);
+        if (DataController.GetQuizzes().Length==0)
         {
             buttonPrefab.GetComponent<Image>().color = Color.red;
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);
