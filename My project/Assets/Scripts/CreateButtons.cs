@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -9,8 +10,23 @@ using UnityEngine.UI;
 public class CreateButtons : MonoBehaviour
 {
     public GameObject buttonPrefab;
+    private SpriteRenderer loadingSprite;
+    
+
+    void Update()
+    {
+       /* if (DataController.loading)
+        {
+            loadingSprite.enabled=true;
+        }
+        else
+        {
+            loadingSprite.enabled=false;
+        }*/
+    }
     void Start()
     {
+       // loadingSprite = GameObject.Find("Loading").GetComponent<SpriteRenderer>();
         LoadGamesToButtons(buttonPrefab);
     }
 
@@ -20,7 +36,7 @@ public class CreateButtons : MonoBehaviour
          {
              DestroyImmediate(transform.GetChild(0).gameObject);
          }
-        if (DataController.GetQuizzes().Length==0)
+        if (DataController.GetQuizzes().Length==0||(DataController.GetQuizzes() == null))
         {
             buttonPrefab.GetComponent<Image>().color = Color.red;
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);

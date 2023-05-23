@@ -30,7 +30,6 @@ public class Room : MonoBehaviour
             {
                 Destroy(tableInstance);
                 TableOpened = false;
-
             }
         }
     }
