@@ -123,13 +123,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5575105031623803111, guid: c7a9687cbc9d56348a9b4ff3bd03515d, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: -3031185927718964253, guid: 231faee5a01ad39459387e3436927dcb, type: 3}
+        m_TargetAssemblyTypeName: Room, Assembly-CSharp
+        m_MethodName: ButtonClicked
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgument: {fileID: 474422331518400293}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
