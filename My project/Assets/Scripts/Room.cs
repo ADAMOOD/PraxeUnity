@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class Room : MonoBehaviour
 {
     public GameObject Prefab;
-    private bool TableOpened;
-    private GameObject tableInstance=null;
+    private static bool TableOpened;
+    private static GameObject tableInstance=null;
 
     public void ButtonClicked(GameObject cliGameObject)
     {
@@ -17,8 +17,8 @@ public class Room : MonoBehaviour
         TextMeshProUGUI textMesh = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();//veme text z tlacitka na ktere se kliklo 
         GameObject Object = Instantiate(Prefab);//zobrazi tabulklu
         tableInstance = Object;
-        Data(textMesh.text);
         TableOpened = true;
+        DataSerilization(textMesh.text);
     }
 
     void Update()
@@ -37,7 +37,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    public void Data(string inputString)
+    public void DataSerilization(string inputString)
     {
         Debug.Log(inputString);
         string[] data = Quiz.ExtractValuesFromFormattedString(inputString);
