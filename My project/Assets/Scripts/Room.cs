@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Assets.Scripts;
 using TMPro;
 using UnityEngine;
@@ -15,10 +16,10 @@ public class Room : MonoBehaviour
     {
         Button buttonComponent = cliGameObject.GetComponent<Button>();
         TextMeshProUGUI textMesh = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();//veme text z tlacitka na ktere se kliklo 
+        DataSerilization(textMesh.text);
         GameObject Object = Instantiate(Prefab);//zobrazi tabulklu
         tableInstance = Object;
         TableOpened = true;
-        DataSerilization(textMesh.text);
     }
 
     void Update()
@@ -27,9 +28,6 @@ public class Room : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log(TableOpened);
-                // Kód, který se provede pøi kliknutí kamkoli do sceny
-                Debug.Log($"niceni {tableInstance.name}");
                 Destroy(tableInstance);
                 TableOpened = false;
 
@@ -41,10 +39,20 @@ public class Room : MonoBehaviour
     {
         Debug.Log(inputString);
         string[] data = Quiz.ExtractValuesFromFormattedString(inputString);
-        string[] names = {"Max", "Now", "RoomName", "Date"};
-        for (int i = 0; i < data.Length; i++)
+        string[] names = {"Max", "Now", "RoomName", "Date","Rank"};
+        for (int i = 0; i < name.Length; i++)
         {
-            InsertDataToComponents(data[i],names[i]);
+            
+            if (i<(names.Length-1))
+            {
+                Debug.Log($"{names[i]}-->{data[i]}");    
+                InsertDataToComponents(data[i], names[i]);
+            }
+            else
+            {
+               /* double randomValue = UnityEngine.Random.Range(0, 10);
+                InsertDataToComponents(randomValue.ToString(), names[i]);*/
+            }
         }
     }
     private void InsertDataToComponents(string data,string name)
