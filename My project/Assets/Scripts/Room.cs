@@ -8,21 +8,32 @@ using UnityEngine.UI;
 public class Room : MonoBehaviour
 {
     public GameObject Prefab;
-    public bool TableOpened=false;
+    private bool TableOpened;
+    private GameObject tableInstance=null;
+
     public void ButtonClicked(GameObject cliGameObject)
     {
         Button buttonComponent = cliGameObject.GetComponent<Button>();
         TextMeshProUGUI textMesh = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();//veme text z tlacitka na ktere se kliklo 
         GameObject Object = Instantiate(Prefab);//zobrazi tabulklu
-         Data(textMesh.text);
-        TableOpened=true;
+        tableInstance = Object;
+        Data(textMesh.text);
+        TableOpened = true;
     }
 
-    public void CloseTableOnClick(GameObject pareGameObject)
+    void Update()
     {
-        if (TableOpened)
+        if (TableOpened)//nevim jak zavrit
         {
-           Destroy(FindChildByName(pareGameObject.transform, "Canvas (1)")); 
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log(TableOpened);
+                // Kód, který se provede pøi kliknutí kamkoli do sceny
+                Debug.Log($"niceni {tableInstance.name}");
+                Destroy(tableInstance);
+                TableOpened = false;
+
+            }
         }
     }
 
@@ -41,7 +52,6 @@ public class Room : MonoBehaviour
         GameObject child = FindChildByName(Prefab.transform, name);
         if (child != null)
         {
-            Debug.Log(child.transform.name);
             Text text = child.GetComponent<Text>();
             text.text = data;
         }
@@ -61,7 +71,6 @@ public class Room : MonoBehaviour
                 return child.gameObject;
             }
         }
-
         return null;
     }
 }
