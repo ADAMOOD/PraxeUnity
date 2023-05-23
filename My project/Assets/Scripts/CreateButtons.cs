@@ -17,10 +17,10 @@ public class CreateButtons : MonoBehaviour
     public void LoadGamesToButtons(GameObject buttonPrefab)
     {
         while (transform.childCount > 0)
-        {
-            DestroyImmediate(transform.GetChild(0).gameObject);
-        }
-        Debug.Log("cekacka");
+         {
+             DestroyImmediate(transform.GetChild(0).gameObject);
+         }
+         Debug.Log("cekacka");
         Thread.Sleep(1000);
         if (DataController.GetQuizzes().Length==0)
         {
@@ -40,7 +40,6 @@ public class CreateButtons : MonoBehaviour
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);
             // Set the parent of the instantiated buttonPrefab
             buttonInstance.transform.SetParent(transform);
-
             // Find the Text component inside the buttonInstance
             Debug.Log(quiz.ToString());
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();

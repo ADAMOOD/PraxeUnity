@@ -12,11 +12,10 @@ public class DataController : MonoBehaviour
     {
         try
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Format("http://localhost:5191/api/Quiz/random/20"));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(String.Format("http://localhost:5191/api/Quiz/random/3"));
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             StreamReader reader = new StreamReader(response.GetResponseStream());
             string jsonResponse = reader.ReadToEnd();
-            Debug.Log(jsonResponse);
             // Use Newtonsoft.Json for deserialization
             Quiz[] quizzes = JsonConvert.DeserializeObject<Quiz[]>(jsonResponse, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
             return quizzes;
