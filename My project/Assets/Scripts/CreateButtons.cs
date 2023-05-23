@@ -20,8 +20,6 @@ public class CreateButtons : MonoBehaviour
          {
              DestroyImmediate(transform.GetChild(0).gameObject);
          }
-         Debug.Log("cekacka");
-        Thread.Sleep(1000);
         if (DataController.GetQuizzes().Length==0)
         {
             buttonPrefab.GetComponent<Image>().color = Color.red;

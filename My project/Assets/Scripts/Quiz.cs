@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -42,6 +44,31 @@ namespace Assets.Scripts
         public override string ToString()
         {
             return $"Max {maxPlayerCount}, {currentPlayerCount} Players, Status {roomState}, created:{createdAt}";
+        }
+        public static string[] ExtractValuesFromFormattedString(string input)
+        {
+            string pattern = @"Max (\d+), (\d+) Players, Status (\w+), created:(.+)";
+
+            Match match = Regex.Match(input, pattern);
+            if (match.Success)
+            {
+                string maxPlayerCount = match.Groups[1].Value;
+                string currentPlayerCount = match.Groups[2].Value;
+                string roomState = match.Groups[3].Value;
+                string createdAt = match.Groups[4].Value;
+
+                string[] values = new string[4];
+                values[0] = maxPlayerCount;
+                values[1] = currentPlayerCount;
+                values[2] = roomState;
+                values[3] = createdAt;
+                return values;
+            }
+            else
+            {
+                Debug.Log("chyba");
+                return null;
+            }
         }
     }
 }
