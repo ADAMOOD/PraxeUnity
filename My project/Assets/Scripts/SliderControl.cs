@@ -11,7 +11,7 @@ public class SliderControl : MonoBehaviour
     {
         slider=GetComponent<Slider>();
         text=TextObjecGameObject.GetComponent<Text>();
-        slider.value = 0;
+        slider.value = 4;
         text.text = slider.value.ToString();
     }
     public void sliderChange()

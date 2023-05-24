@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -11,27 +12,27 @@ public class CreateButtons : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public GameObject objNum;
-  //  public int num;
     void Start()
     {
-        LoadGamesToButtons(buttonPrefab/*,num*/);
+        LoadGamesToButtonsWithNum(buttonPrefab);
     }
 
-    public void LoadGamesToButtons(GameObject buttonPrefab/*,int num*/)
+    public void LoadGamesToButtons(GameObject buttonPrefab)
     {
         while (transform.childCount > 0)
          {
              DestroyImmediate(transform.GetChild(0).gameObject);
          }
-        if (DataController.GetQuizzes(/*num*/).Length==0||(DataController.GetQuizzes(/*num*/) == null))
+        if (DataController.GetQuizzes().Length==0||(DataController.GetQuizzes() == null))
         {
             buttonPrefab.GetComponent<Image>().color = Color.red;
+            
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);
             buttonInstance.transform.SetParent(transform);
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = "ŽÁDNÉ HRY NENALEZENY";
         }
-        foreach (var quiz in DataController.GetQuizzes(/*num*/))
+        foreach (var quiz in DataController.GetQuizzes())
         {
             if (buttonPrefab.GetComponent<Image>().color != Color.white)
             {
@@ -49,8 +50,7 @@ public class CreateButtons : MonoBehaviour
     }
     public void LoadGamesToButtonsWithNum(GameObject buttonPrefab)
     {
-        
-       int num = SliderControl.getSliderValue(objNum);
+        int num = SliderControl.getSliderValue(objNum);
        while (transform.childCount > 0)
         {
             DestroyImmediate(transform.GetChild(0).gameObject);
@@ -63,20 +63,17 @@ public class CreateButtons : MonoBehaviour
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = "ŽÁDNÉ HRY NENALEZENY";
         }
-        foreach (var quiz in DataController.GetQuizzes(num))
+        Array.ForEach(DataController.GetQuizzes(num), quiz =>
         {
             if (buttonPrefab.GetComponent<Image>().color != Color.white)
             {
                 buttonPrefab.GetComponent<Image>().color = Color.white;
             }
-            // Instantiate the buttonPrefab
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);
-            // Set the parent of the instantiated buttonPrefab
             buttonInstance.transform.SetParent(transform);
-            // Find the Text component inside the buttonInstance
             Debug.Log(quiz.ToString());
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = quiz.ToString();
-        }
+        });
     }
 }
