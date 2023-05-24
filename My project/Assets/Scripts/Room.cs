@@ -24,7 +24,7 @@ public class Room : MonoBehaviour
 
     void Update()
     {
-        if (TableOpened)//nevim jak zavrit
+        if (TableOpened)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -64,7 +64,7 @@ public class Room : MonoBehaviour
         }
     }
 
-    private GameObject FindChildByName(Transform parent, string name)
+    public static GameObject FindChildByName(Transform parent, string name)
     {
         if (parent.name == name)
         {
