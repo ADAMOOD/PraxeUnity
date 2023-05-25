@@ -38,20 +38,16 @@ public class Room : MonoBehaviour
     {
         Debug.Log(inputString);
         string[] data = Quiz.ExtractValuesFromFormattedString(inputString);
-        string[] names = {"Max", "Now", "RoomName", "Date","Rank"};
-        for (int i = 0; i < name.Length; i++)
+        string[] names = {"Max", "Now", "RoomName", "Date", "Players"};
+        for (int i = 0; i < names.Length; i++)
         {
-            
-            if (i<(names.Length-1))
-            {
+
                 Debug.Log($"{names[i]}-->{data[i]}");    
                 InsertDataToComponents(data[i], names[i]);
-            }
-            else
-            {
+
                /* double randomValue = UnityEngine.Random.Range(0, 10);
                 InsertDataToComponents(randomValue.ToString(), names[i]);*/
-            }
+           
         }
     }
     private void InsertDataToComponents(string data,string name)

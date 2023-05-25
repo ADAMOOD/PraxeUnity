@@ -12,7 +12,7 @@ public class CreateButtons : MonoBehaviour
 {
     public GameObject buttonPrefab;
     public GameObject objNum;
-    private DataController Controller ;
+    private DataController Controller  ;
     [SerializeField] private GameObject PrefabImage;
     private bool helper;
     private GameObject LoadingInstance;
@@ -20,7 +20,6 @@ public class CreateButtons : MonoBehaviour
     {
         helper=true;
         Controller = new DataController();
-        Controller.QuizzesLoaded += OnQuizzesLoaded; // Pøipojení k události QuizzesLoaded
         LoadGamesToButtonsWithNum(buttonPrefab);
     }
 
@@ -28,23 +27,17 @@ public class CreateButtons : MonoBehaviour
     {
         if (Controller.Loading && !helper)
         {
-            Debug.Log("nacitani");
             LoadingInstance = Instantiate(PrefabImage, transform);
             helper = true;
         }
         if (!Controller.Loading && helper)
         {
-            Debug.Log($"niceni {PrefabImage.name}");
-            Destroy(LoadingInstance); // Znièení instance objektu
+            Destroy(LoadingInstance);
             helper = false;
         }
     }
 
-    // Metoda, která se volá po dokonèení naèítání kvízù
-    private void OnQuizzesLoaded()
-    {
-        Debug.Log("Naèítání dokonèeno"); // Zde mùžete provést další akce po dokonèení naèítání
-    }
+
    /* public void LoadGamesToButtons(GameObject buttonPrefab)
     {
         DataController request = new DataController();
@@ -79,6 +72,7 @@ public class CreateButtons : MonoBehaviour
     }*/
     public async void LoadGamesToButtonsWithNum(GameObject buttonPrefab)
     {
+        Controller = new DataController();//to melo spravit null reference
         helper = false;
         int num = SliderControl.getSliderValue(objNum);
         while (transform.childCount > 0)
@@ -89,23 +83,32 @@ public class CreateButtons : MonoBehaviour
 
         if (Controller.Quizzes.Length == 0 || (Controller.Quizzes == null))
         {
-            buttonPrefab.GetComponent<Image>().color = Color.red;
+            
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);
             buttonInstance.transform.SetParent(transform);
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
+            buttonInstance.GetComponent<Image>().color = Color.red;
             buttonText.text = "ŽÁDNÉ HRY NENALEZENY";
         }
+        int i = 1;
         Array.ForEach(Controller.Quizzes, quiz =>
         {
-            if (buttonPrefab.GetComponent<Image>().color != Color.white)
-            {
-                buttonPrefab.GetComponent<Image>().color = Color.white;
-            }
             GameObject buttonInstance = Instantiate(buttonPrefab, transform);
             buttonInstance.transform.SetParent(transform);
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.fontSize = 20;
             buttonText.text = quiz.ToString();
+            if (i % 2 == 0)
+                {
+                    buttonText.color = Color.white;
+                    buttonInstance.GetComponent<Image>().color = Color.gray;
+                }
+                else
+                {
+                    buttonInstance.GetComponent<Image>().color = Color.white;
+                    buttonText.color = Color.black;
+                }
+            i++;
         });
-        Debug.Log("Naèítání dokonèeno");
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using System.Net;
 using System.Net.Http;
@@ -12,7 +13,6 @@ public class DataController : MonoBehaviour
 {
     public bool Loading { get; set; }
     public Quiz[] Quizzes { get; set; }
-    public event Action QuizzesLoaded;
 
     public DataController()
     {
@@ -32,8 +32,8 @@ public class DataController : MonoBehaviour
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    Quizzes = JsonConvert.DeserializeObject<Quiz[]>(jsonResponse, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-                    QuizzesLoaded?.Invoke();
+                    Quizzes = JsonConvert.DeserializeObject<Quiz[]>(jsonResponse);
+                    Array.ForEach(Quizzes, quiz => quiz.InsertPlayers());
                 }
                 else
                 {
@@ -50,7 +50,6 @@ public class DataController : MonoBehaviour
         {
             Debug.Log("Neoèekávaná chyba: " + ex.Message);
             Loading = false;
-            // Pøípadné další ošetøení chyby
         }
         Loading = false;
     }
