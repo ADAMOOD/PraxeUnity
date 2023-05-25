@@ -19,8 +19,7 @@ namespace Assets.Scripts
 
         public int maxPlayerCount { get; set; }
 
-        [JsonProperty]
-        public int currentPlayerCount { get; set; }
+        [JsonProperty] public int currentPlayerCount { get; set; }
 
         public Quiz.RoomState roomState { get; set; }
         public DateTime createdAt { get; set; }
@@ -30,7 +29,6 @@ namespace Assets.Scripts
         [JsonConstructor]
         public Quiz()
         {
-            
         }
 
         public void InsertPlayers()
@@ -67,15 +65,17 @@ namespace Assets.Scripts
             this.createdAt = DateTime.Now;
             InsertPlayers();
         }
+
         public override string ToString()
         {
             string playersString = Players != null ? string.Join(", ", Players.Select(p => p.ToString())) : "null";
-            return $"maxP. {maxPlayerCount}, currentP. {currentPlayerCount}, R.Status {roomState}, {createdAt}, [{playersString}]";
+            return
+                $"maxP. {maxPlayerCount}, currentP. {currentPlayerCount}, R.Status {roomState}, {createdAt}, [{playersString}]";
         }
+
         public static string[] ExtractValuesFromFormattedString(string input)
         {
             string pattern = @"maxP\. (\d+), currentP\. (\d+), R\.Status (\w+), (.+), \[(.+)\]";
-
             Match match = Regex.Match(input, pattern);
             if (match.Success)
             {
@@ -84,7 +84,6 @@ namespace Assets.Scripts
                 string roomState = match.Groups[3].Value;
                 string createdAt = match.Groups[4].Value;
                 string playersString = match.Groups[5].Value;
-
                 string[] players = playersString.Split(',');
                 string[] values = new string[5];
                 values[0] = maxPlayerCount;
@@ -92,7 +91,6 @@ namespace Assets.Scripts
                 values[2] = roomState;
                 values[3] = createdAt;
                 values[4] = playersString;
-
                 return values;
             }
             else

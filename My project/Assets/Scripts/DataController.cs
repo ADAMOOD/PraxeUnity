@@ -51,6 +51,7 @@ public class DataController : MonoBehaviour
             Debug.Log("Neoèekávaná chyba: " + ex.Message);
             Loading = false;
         }
+
         Loading = false;
     }
 }
