@@ -32,8 +32,8 @@ public class DataController : MonoBehaviour
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
+                    Debug.Log(jsonResponse);
                     Quizzes = JsonConvert.DeserializeObject<Quiz[]>(jsonResponse);
-                    Array.ForEach(Quizzes, quiz => quiz.InsertPlayers());
                 }
                 else
                 {

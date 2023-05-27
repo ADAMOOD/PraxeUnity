@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -8,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace Assets.Scripts
 {
     [Serializable]
-    public class Quiz
+    public class Quiz : MonoBehaviour
     {
         public enum RoomState
         {
@@ -23,7 +24,7 @@ namespace Assets.Scripts
 
         public Quiz.RoomState roomState { get; set; }
         public DateTime createdAt { get; set; }
-        public int[] Players { get; set; } = new int[0];
+        public List<Player> Players { get; set; }
 
         // Default constructor for deserialization
         [JsonConstructor]
@@ -31,39 +32,22 @@ namespace Assets.Scripts
         {
         }
 
-        public void InsertPlayers()
-        {
-            Players = new int[currentPlayerCount];
-            Debug.Log(currentPlayerCount);
-            int r;
-            for (int i = 0; i < currentPlayerCount; i++)
-            {
-                do
-                {
-                    r = UnityEngine.Random.Range(0, 100);
-                    Debug.Log(r);
-                } while (Players.Contains(r));
-
-                Players[i] = r;
-            }
-        }
-
-        public Quiz(int maxPlayerCount, int currentPlayerCount, Quiz.RoomState roomState, DateTime createdAt)
+        public Quiz(int maxPlayerCount, int currentPlayerCount, Quiz.RoomState roomState, DateTime createdAt, List<Player> players)
         {
             this.maxPlayerCount = maxPlayerCount;
             this.currentPlayerCount = currentPlayerCount;
             this.roomState = roomState;
             this.createdAt = createdAt;
-            InsertPlayers();
+            this.Players = players;
         }
 
-        public Quiz(int maxPlayerCount, int currentPlayerCount, Quiz.RoomState roomState)
+        public Quiz(int maxPlayerCount, int currentPlayerCount, Quiz.RoomState roomState, List<Player> players)
         {
             this.maxPlayerCount = maxPlayerCount;
             this.currentPlayerCount = currentPlayerCount;
             this.roomState = roomState;
             this.createdAt = DateTime.Now;
-            InsertPlayers();
+            this.Players = players;
         }
 
         public override string ToString()
