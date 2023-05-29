@@ -26,10 +26,6 @@ public class CreateButtons : MonoBehaviour
 
     void Update()
     {
-       /* if (Controller == null)
-        {
-           LoadGamesToButtonsWithNum(buttonPrefab);
-        }*/
         if (Controller.Loading && !helper)
         {
             LoadingInstance = Instantiate(PrefabImage, transform);
@@ -100,8 +96,10 @@ public class CreateButtons : MonoBehaviour
         int i = 1;
         Array.ForEach(Controller.Quizzes, quiz =>
         {
-            GameObject buttonInstance = Instantiate(buttonPrefab, transform);
+            GameObject buttonInstance = Instantiate(buttonPrefab,transform);
             buttonInstance.transform.SetParent(transform);
+            Button b=buttonInstance.GetComponent<Button>();
+            b.GetQuizToButtonScript(quiz);
             TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.fontSize = 20;
             buttonText.text = quiz.ToString();

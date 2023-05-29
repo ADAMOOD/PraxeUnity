@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts;
+using Unity.Collections;
 using UnityEngine;
 
 public class Button : MonoBehaviour
 {
-    void Start()
+    public Quiz Quiz;
+
+    public void GetQuizToButtonScript(Quiz q)
     {
-        Debug.Log("tlacitko");
+        Quiz=q;
     }
+
 
 }

@@ -52,9 +52,7 @@ namespace Assets.Scripts
 
         public override string ToString()
         {
-            string playersString = Players != null ? string.Join(", ", Players.Select(p => p.ToString())) : "null";
-            return
-                $"maxP. {maxPlayerCount}, currentP. {currentPlayerCount}, R.Status {roomState}, {createdAt}, [{playersString}]";
+            return $"maxP. {maxPlayerCount}, currentP. {currentPlayerCount}, R.Status {roomState}, {createdAt}";
         }
 
         public static string[] ExtractValuesFromFormattedString(string input)

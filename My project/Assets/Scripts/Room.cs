@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -5,20 +6,23 @@ using Assets.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Object = System.Object;
 
 public class Room : MonoBehaviour
 {
     public GameObject Prefab;
     private static bool TableOpened;
     private static GameObject tableInstance=null;
+    public GameObject PlayersContainerPrefab;
+    public GameObject GridContentForPlayers;
 
     public void ButtonClicked(GameObject cliGameObject)
     {
         Button buttonComponent = cliGameObject.GetComponent<Button>();
         TextMeshProUGUI textMesh = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();//veme text z tlacitka na ktere se kliklo 
-        DataSerilization(textMesh.text);
-        GameObject Object = Instantiate(Prefab);//zobrazi tabulklu
-        tableInstance = Object;
+        DataSerilization(buttonComponent.Quiz);
+        GameObject GObject = Instantiate(Prefab);//zobrazi tabulklu
+        tableInstance = GObject;
         TableOpened = true;
     }
 
@@ -28,26 +32,34 @@ public class Room : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Destroy(tableInstance);
-                TableOpened = false;
+                GameObject PlayersTable = FindChildByName(tableInstance.transform, "PlayersTable");
+                RectTransform rectTransform = PlayersTable.GetComponent<RectTransform>();
+                Vector2 mousePosition = Input.mousePosition;
+                if (!RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePosition))
+                {
+                    Destroy(tableInstance);
+                    TableOpened = false;
+                }
             }
         }
     }
 
-    public void DataSerilization(string inputString)
+    public void DataSerilization(Quiz quiz)
     {
-        Debug.Log(inputString);
-        string[] data = Quiz.ExtractValuesFromFormattedString(inputString);
-        string[] names = {"Max", "Now", "RoomName", "Date", "Players"};
+        string[] data =
+        {
+            quiz.maxPlayerCount.ToString(), quiz.currentPlayerCount.ToString(), quiz.roomState.ToString(),
+            quiz.createdAt.ToString()
+        };
+        string[] names = {"Max", "Now", "RoomName", "Date"};
         for (int i = 0; i < names.Length; i++)
         {
-
-                Debug.Log($"{names[i]}-->{data[i]}");    
-                InsertDataToComponents(data[i], names[i]);
-
-               /* double randomValue = UnityEngine.Random.Range(0, 10);
-                InsertDataToComponents(randomValue.ToString(), names[i]);*/
-           
+            InsertDataToComponents(data[i], names[i]);
+        }
+        foreach (var p in quiz.Players)
+        {
+            GameObject playerisntance = Instantiate(PlayersContainerPrefab,GridContentForPlayers.transform); 
+           // playerisntance.transform.SetParent(gridContent.transform);
         }
     }
     private void InsertDataToComponents(string data,string name)
