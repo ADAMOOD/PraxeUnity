@@ -124,7 +124,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: -3031185927718964253, guid: 231faee5a01ad39459387e3436927dcb, type: 3}
+      - m_Target: {fileID: 4920120831719825465, guid: 231faee5a01ad39459387e3436927dcb, type: 3}
         m_TargetAssemblyTypeName: Room, Assembly-CSharp
         m_MethodName: ButtonClicked
         m_Mode: 2
@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555a66247adf210418535c9460373a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Quiz: {fileID: 0}
 --- !u!1 &474422331690087902
 GameObject:
   m_ObjectHideFlags: 0

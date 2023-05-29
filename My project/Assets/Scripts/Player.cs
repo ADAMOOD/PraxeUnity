@@ -20,6 +20,10 @@ namespace Assets.Scripts
             Name = name;
             Rank = rank;
         }
+        public override string ToString()
+        {
+            return $"Player ID: {Id}\nName: {Name}\nRank: {Rank}\nCountry: {Country}";
+        }
     }
 }
 

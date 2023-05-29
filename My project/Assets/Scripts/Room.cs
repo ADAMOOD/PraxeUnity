@@ -13,14 +13,15 @@ public class Room : MonoBehaviour
     public GameObject Prefab;
     private static bool TableOpened;
     private static GameObject tableInstance=null;
-    public GameObject PlayersContainerPrefab;
-    public GameObject GridContentForPlayers;
+    public static Quiz ButtonThing;
 
     public void ButtonClicked(GameObject cliGameObject)
     {
         Button buttonComponent = cliGameObject.GetComponent<Button>();
+        ButtonThing = buttonComponent.Quiz;
         TextMeshProUGUI textMesh = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();//veme text z tlacitka na ktere se kliklo 
         DataSerilization(buttonComponent.Quiz);
+
         GameObject GObject = Instantiate(Prefab);//zobrazi tabulklu
         tableInstance = GObject;
         TableOpened = true;
@@ -56,11 +57,7 @@ public class Room : MonoBehaviour
         {
             InsertDataToComponents(data[i], names[i]);
         }
-        foreach (var p in quiz.Players)
-        {
-            GameObject playerisntance = Instantiate(PlayersContainerPrefab,GridContentForPlayers.transform); 
-           // playerisntance.transform.SetParent(gridContent.transform);
-        }
+
     }
     private void InsertDataToComponents(string data,string name)
     {
