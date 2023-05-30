@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -23,6 +24,12 @@ namespace Assets.Scripts
         public override string ToString()
         {
             return $"Player ID: {Id}\nName: {Name}\nRank: {Rank}\nCountry: {Country}";
+        }
+        public static List<Player> SortPlayersByRankDescending(List<Player> players)
+        {
+            List<Player> sortedPlayers = new List<Player>(players);
+            sortedPlayers.Sort((p1, p2) => p2.Rank.CompareTo(p1.Rank));
+            return sortedPlayers;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
@@ -9,7 +10,7 @@ public class GridContent : MonoBehaviour
     public GameObject prefab;
     void Start()
     {
-        foreach (var p in Room.ButtonThing.Players)
+        foreach (var p in Player.SortPlayersByRankDescending(Room.ButtonThing.Players) )
         {
             GameObject playerisntance = Instantiate(prefab, transform);
             InsertInformationsToGameObjectText(p.Name,"Name",playerisntance);
