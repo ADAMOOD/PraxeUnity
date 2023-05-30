@@ -8,10 +8,11 @@ public class ScrollColor : MonoBehaviour
 
     public void Scrolling()
     {
-        Debug.Log(ScrollBar.value);
-
-        /*Color coloredImage = ColoredArea.transform.GetComponent<Color>();
-        Debug.Log(coloredImage);
-        coloredImage.color = new Color(ScrollBar.value, 0, 0);*/
+        float lerpValue = 1f - ScrollBar.value; // Invert
+        Color startColor = Color.green;
+        Color endColor = Color.red;
+        Color lerpedColor = Color.Lerp(startColor, endColor, lerpValue);
+        Image coloredImage = ColoredArea.GetComponent<Image>();
+        coloredImage.color = lerpedColor;
     }
 }

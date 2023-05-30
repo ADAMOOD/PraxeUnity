@@ -28,7 +28,7 @@ namespace Assets.Scripts
         public static List<Player> SortPlayersByRankDescending(List<Player> players)
         {
             List<Player> sortedPlayers = new List<Player>(players);
-            sortedPlayers.Sort((p1, p2) => p2.Rank.CompareTo(p1.Rank));
+            sortedPlayers.Sort((p1, p2) => int.Parse(p2.Rank).CompareTo(int.Parse(p1.Rank)));
             return sortedPlayers;
         }
     }
