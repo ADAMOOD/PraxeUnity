@@ -12,9 +12,6 @@ public class GridContent : MonoBehaviour
         foreach (var p in Room.ButtonThing.Players)
         {
             GameObject playerisntance = Instantiate(prefab, transform);
-           /* GameObject n=Room.FindChildByName(playerisntance.transform,"")
-            Text neco = playerisntance.GetComponent<Text>();
-            Debug.Log(neco.text);*/
             InsertInformationsToGameObjectText(p.Name,"Name",playerisntance);
             InsertInformationsToGameObjectText(p.Rank,"Rank", playerisntance);
             InsertInformationsToGameObjectText(p.Country, "Country", playerisntance);

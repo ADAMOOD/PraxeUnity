@@ -49,10 +49,9 @@ public class Room : MonoBehaviour
     {
         string[] data =
         {
-            quiz.maxPlayerCount.ToString(), quiz.currentPlayerCount.ToString(), quiz.roomState.ToString(),
-            quiz.createdAt.ToString()
+           $"{quiz.maxPlayerCount.ToString()}/{quiz.currentPlayerCount.ToString()}" , quiz.roomState.ToString(), quiz.createdAt.ToString()
         };
-        string[] names = {"Max", "Now", "RoomName", "Date"};
+        string[] names = { "Max/Curr","RoomName", "Date"};
         for (int i = 0; i < names.Length; i++)
         {
             InsertDataToComponents(data[i], names[i]);
