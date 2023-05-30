@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 7646340955433053365}
   - component: {fileID: 634761036152044046}
   - component: {fileID: 4920120831719825465}
+  - component: {fileID: 3702149922091707169}
   m_Layer: 5
   m_Name: Canvas (1)
   m_TagString: Untagged
@@ -272,6 +273,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1271694643995198413}
+--- !u!114 &3702149922091707169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271694643995198413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7b78f1d7de164046ac92a9bd9bab608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2906345712651347047
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +1024,7 @@ GameObject:
   - component: {fileID: 6708352854887380136}
   m_Layer: 5
   m_Name: RoomName
-  m_TagString: Untagged
+  m_TagString: Header
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
