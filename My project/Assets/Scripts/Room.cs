@@ -31,47 +31,26 @@ public class Room : MonoBehaviour
     {
         if (TableOpened)
         {
-             if (Input.GetMouseButtonDown(0))
-             {
-                 GameObject PlayersTable = FindChildByName(tableInstance.transform, "PlayersTable");
-                 RectTransform rectTransform = PlayersTable.GetComponent<RectTransform>();
-                 Vector2 mousePosition = Input.mousePosition;
-                 if (!RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePosition))
-                 {
-                     Destroy(tableInstance);
-                     TableOpened = false;
-                 }
-             }
-            /* if (Input.GetMouseButtonDown(0))
-             {
-                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                 bool clickedOnStill = false;
-                 RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-                 if (hit.collider != null)
-                 {
-                     GameObject clickedObject = hit.collider.gameObject;
-                     Debug.Log($"{clickedObject.name} -> {clickedObject.tag}");
-                     if (clickedObject.CompareTag("Still"))
-                     {
-                         clickedOnStill = true;
-                     }
-                 }
-                 if (!clickedOnStill)
-                 {
-                     Destroy(tableInstance);
-                     TableOpened = false;
-                 }
-             }*/
-            /*if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
-
-
-                if (clickedObjectTag != "Still")
+                GameObject[] stillObjects = GameObject.FindGameObjectsWithTag("Still");
+                bool clickedOutside = true;
+                foreach (GameObject obj in stillObjects)
+                {
+                    RectTransform rectTransform = obj.GetComponent<RectTransform>();
+                    Vector2 mousePosition = Input.mousePosition;
+                    if (RectTransformUtility.RectangleContainsScreenPoint(rectTransform, mousePosition))
+                    {
+                        clickedOutside = false;
+                        break;
+                    }
+                }
+                if (clickedOutside)
                 {
                     Destroy(tableInstance);
                     TableOpened = false;
                 }
-            }*/
+            }
         }
     }
 
