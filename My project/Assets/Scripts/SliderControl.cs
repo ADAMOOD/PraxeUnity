@@ -28,25 +28,23 @@ public class SliderControl : MonoBehaviour
     {
         var headers = GameObject.FindGameObjectsWithTag("Header");
         var normals = GameObject.FindGameObjectsWithTag("Normal");
-        foreach (var header in headers)
+        var headers2 = GameObject.FindGameObjectsWithTag("Header2");
+        ChangeSize(headers, 40f,72f);
+        ChangeSize(headers2, 15f,25f);
+        ChangeSize(normals,15f,32f);
+    }
+
+    private void ChangeSize(GameObject[] GameObjects,float min,float max)
+    {
+        foreach (var header in GameObjects)
         {
             TextMeshProUGUI HText = header.GetComponent<TextMeshProUGUI>();
             float maxsize = HText.fontSizeMax;
-            float fontSizeHeaders = Mathf.Lerp(40f, 72, slider.value / 10f);
-            HText.fontSize = (int)(fontSizeHeaders);
+            float fontSizeHeaders = Mathf.Lerp(min, max, slider.value / 10f);
+            HText.fontSize = (int) (fontSizeHeaders);
             if (HText.isTextOverflowing)
             {
                 HText.overflowMode = TextOverflowModes.Ellipsis;
-            }
-        }
-        foreach (var normal in normals)
-        {
-            TextMeshProUGUI NText = normal.GetComponent<TextMeshProUGUI>();
-            float fontSizeHeaders = Mathf.Lerp(15f, 32, slider.value / 10f);
-            NText.fontSize = (int)(fontSizeHeaders);
-            if (NText.isTextOverflowing)
-            {
-                NText.overflowMode = TextOverflowModes.Ellipsis;
             }
         }
     }
@@ -76,10 +74,6 @@ public class SliderControl : MonoBehaviour
         {
             TextMeshProUGUI text = header.GetComponent<TextMeshProUGUI>();
             float maxSize = text.fontSize;
-            do
-            {
-                maxSize += 1;
-            } while (!text.isTextOverflowing);
             MaxSizesOfObjects.Add(text, maxSize);
         }
     }

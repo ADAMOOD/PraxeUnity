@@ -21,7 +21,6 @@ public class Room : MonoBehaviour
         ButtonThing = buttonComponent.Quiz;
         TextMeshProUGUI textMesh = buttonComponent.GetComponentInChildren<TextMeshProUGUI>();//veme text z tlacitka na ktere se kliklo 
         DataSerialization(buttonComponent.Quiz);
-
         GameObject GObject = Instantiate(Prefab);//zobrazi tabulklu
         tableInstance = GObject;
         TableOpened = true;
